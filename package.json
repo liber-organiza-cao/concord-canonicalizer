@@ -1,0 +1,15 @@
+{
+  "name": "concord-canonicalizer",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "concord_canonicalizer_bg.wasm",
+    "concord_canonicalizer.js",
+    "concord_canonicalizer.d.ts"
+  ],
+  "main": "concord_canonicalizer.js",
+  "types": "concord_canonicalizer.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
