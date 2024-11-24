@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install wasm-pack
+        run: cargo install wasm-pack
+      - name: Build
+        run: wasm-pack build --release --target web
+      - name: Push
+        run: |
+          git pull &&
+          git config --global user.name "GitHub Actions" &&
+          git config --global user.email "action@github.com" &&
+          git switch build &&
+          git reset --hard 35927025c903c77b24868453404d321287991a5b &&
+          mv .git pkg &&
+          cd pkg &&
+          rm .gitignore &&
+          git add . &&
+          git commit -m "build" &&
+          git push --force
